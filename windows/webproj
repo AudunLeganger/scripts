@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+FNAME=$1
+URL=$2
+touch "$FNAME.html"
+CALL_STRING=$(python3 /mnt/c/Users/Audun/Documents/Programming_Local/scripts/windows/data_retriver.py $FNAME $URL)
+CALL_STRING_HTML="$CALL_STRING --nohtml"
+fe $CALL_STRING_HTML
+hdc $CALL_STRING
+code "$FNAME.html"

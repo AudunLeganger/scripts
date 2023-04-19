@@ -1,0 +1,38 @@
+#!/bin/bash
+FPATH=$(pwd)
+# FILE_HTML=$FPATH/$1
+# FILE_1=$FPATH/$2
+# if [[ $# -eq 3 ]]
+# then
+#     FILE_2=$FPATH/$3
+#     python3 "/mnt/c/Users/Audun/Documents/Programming_Local/scripts/windows/html_decoupler.py" $FILE_HTML $FILE_1 $FILE_2
+# elif [[ $# -eq 2 ]]
+# then
+#     python3 "/mnt/c/Users/Audun/Documents/Programming_Local/scripts/windows/html_decoupler.py" $FILE_HTML $FILE_1
+# fi
+FNAME="$FPATH/$1"
+file_html="$FNAME.html"
+make_css=false
+make_js=false
+
+for i in "$@" ; do
+    if [[ "$i" == "style" ]] || [[ "$i" == "styles" ]] || [[ "$i" == "css" ]] ; then
+        make_css=true
+        file_css="$FNAME-styles.css"
+    fi
+    if [[ "$i" == "script" ]] || [[ "$i" == "js" ]] ; then
+        make_js=true
+        file_js="$FNAME-script.js"
+    fi
+done
+
+if $make_css && $make_js ; then
+    echo "Both css and js"
+    python3 "/Users/audunleganger/Programmering/scripts/osx/html_decoupler.py" $file_html $file_css $file_js
+    
+    elif $make_css ; then
+    python3 "/Users/audunleganger/Programmering/scripts/osx/html_decoupler.py" $file_html $file_css
+    
+    elif $make_js ; then
+    python3 "/Users/audunleganger/Programmering/scripts/osx/html_decoupler.py" $file_html $file_js
+fi

@@ -1,0 +1,23 @@
+#!/bin/bash
+FNAME=$1
+make_html=true
+for i in "$@" ; do
+    if [[ "$i" == "style" ]] || [[ "$i" == "styles" ]] || [[ "$i" == "css" ]] ; then
+        touch "$FNAME-styles.css"
+        code "$FNAME-styles.css"
+    fi
+    if [[ "$i" == "script" ]] || [[ "$i" == "js" ]] ; then
+        touch "$FNAME-script.js"
+        code "$FNAME-script.js"
+    fi
+    if [[ "$i" == "--nohtml" ]] ; then
+        make_html=false
+    fi
+done
+
+if [[ $make_html ]] ; then
+    touch "$FNAME.html"
+    code "$FNAME.html"
+fi
+
+
